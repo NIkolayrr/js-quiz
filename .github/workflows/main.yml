@@ -12,7 +12,6 @@ jobs:
       - name: Angular Deploy gh-pages Actions
         uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.3.1
         with:
-          github_access_token: ${{ secrets.JS_QUIZ }}
           base_href: https://nikolayrr.com/js-quiz/
           deploy_branch: gh-pages
           angular_dist_build_folder: dist/js-quiz
