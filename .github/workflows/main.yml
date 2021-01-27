@@ -1,25 +1,19 @@
-name: Build
+name: Build and Deploy
 on:
   push:
     branches:
       - master
-
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
 
     steps:
-      - uses: actions/checkout@v1
-
-      - name: Node $
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - name: Angular Deploy gh-pages Actions
+        uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.3.1
         with:
-          node-version: $
-
-      - name: npm install and npm run build
-        run: |
-          npm ci
-          npm run build:ci
+          github_access_token: ${{ secrets.JS_QUIZ }}
+          build_configuration: staging
+          base_href: https://nikolayrr.com/js-quiz/
+          deploy_branch: gh-pages
+          angular_dist_build_folder: dist/js-quiz
