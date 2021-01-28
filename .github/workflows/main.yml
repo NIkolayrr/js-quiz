@@ -28,6 +28,5 @@ jobs:
           github_access_token: ${{ secrets.JS_QUIZ }}
           build_configuration:
           base_href: /js-quiz/
-          deploy_branch: gh-pages
+          deploy_branch:
           angular_dist_build_folder: dist/js-quiz
-          angular_project_dir:
