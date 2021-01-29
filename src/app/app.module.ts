@@ -4,20 +4,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card'
+import { QuizPickerComponent } from './quiz-picker/quiz-picker.component';
+import { WelcomeComponent } from './welcome/welcome.component'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    QuizPickerComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule
   ],
   exports: [
-    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

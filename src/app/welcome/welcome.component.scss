@@ -1,0 +1,21 @@
+.hero {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 10vw;
+  margin-top: 10px;
+  .header {
+    display: flex;
+    h1 {
+      margin-right: 10px;
+    }
+  }
+  .pick-level {
+    display: flex;
+
+    mat-card {
+      flex: 1;
+      margin-left: 10px;
+    }
+  }
+}
