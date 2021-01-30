@@ -1,1 +1,20 @@
-<h1>Start the quiz</h1>
+<form [formGroup]="quiz1">
+  <div *ngFor="let q of questions">
+    <div class="question">
+      <label id="example-radio-group-label">{{ q.question }}</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        formControlName="{{ q.question }}"
+      >
+        <div *ngFor="let answer of q.answers">
+          <mat-radio-button class="example-radio-button" [value]="answer">
+            {{ answer.text }}
+          </mat-radio-button>
+        </div>
+      </mat-radio-group>
+    </div>
+  </div>
+  <button mat-button (click)="submitForm()">Submit</button>
+  <div *ngIf="result">Points: {{ result }}</div>
+</form>

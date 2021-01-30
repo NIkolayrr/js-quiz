@@ -11,6 +11,8 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { DialogComponent } from './dialog/dialog.component'
 import { MatButtonModule } from '@angular/material/button'
 import { QuizComponent } from './quiz/quiz.component'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { MatRadioModule } from '@angular/material/radio'
 
 @NgModule({
   declarations: [
@@ -27,6 +29,9 @@ import { QuizComponent } from './quiz/quiz.component'
     MatCardModule,
     MatDialogModule,
     MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatRadioModule,
   ],
   exports: [],
   providers: [],
