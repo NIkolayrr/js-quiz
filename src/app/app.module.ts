@@ -12,7 +12,8 @@ import { DialogComponent } from './dialog/dialog.component'
 import { MatButtonModule } from '@angular/material/button'
 import { QuizComponent } from './quiz/quiz.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { MatRadioModule } from '@angular/material/radio'
+import { MatRadioModule } from '@angular/material/radio';
+import { ScoreComponent } from './score/score.component'
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MatRadioModule } from '@angular/material/radio'
     WelcomeComponent,
     DialogComponent,
     QuizComponent,
+    ScoreComponent,
   ],
   imports: [
     BrowserModule,

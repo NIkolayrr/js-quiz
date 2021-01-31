@@ -1,41 +1,27 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl } from '@angular/forms'
+import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
-import { timer } from 'rxjs'
-
+import { beginner } from '../../quizes/beginner'
+import { ScoreComponent } from '../score/score.component'
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss'],
 })
 export class QuizComponent implements OnInit {
-  result = 0
-  questions = [
-    {
-      type: 'multiple',
-      question: 'Which company developed JavaScript?',
-      answers: [
-        { text: 'Google', points: 0 },
-        { text: 'Facebook', points: 0 },
-        { text: 'Twitter', points: 0 },
-        { text: 'Netscape', points: 1 },
-      ],
-    },
-    {
-      type: 'multiple',
-      question: 'What would be the result in the console 3+2+"7"',
-      answers: [
-        { text: '12', points: 0 },
-        { text: '327', points: 0 },
-        { text: '57', points: 1 },
-      ],
-    },
-  ]
+  result: any
+  questions: any
   quiz1: any
-  constructor(private route: Router, private fb: FormBuilder) {}
+  constructor(
+    private route: Router,
+    private fb: FormBuilder,
+    private dialog: MatDialog
+  ) {}
   ngOnInit(): void {
+    this.questions = beginner // make dynamic
     const group = {} as any
-    this.questions.forEach((question) => {
+    this.questions.forEach((question: any) => {
       group[question.question] = new FormControl('')
     })
     this.quiz1 = this.fb.group(group)
@@ -44,7 +30,12 @@ export class QuizComponent implements OnInit {
   submitForm() {
     this.result = 0
     Object.keys(this.quiz1.value).map((val) => {
+      if (!this.quiz1.value[val].points) return
       this.result += this.quiz1.value[val].points
+    })
+    this.dialog.open(ScoreComponent, {
+      hasBackdrop: true,
+      data: { score: this.result, questions: this.questions },
     })
   }
 }

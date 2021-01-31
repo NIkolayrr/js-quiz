@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ngh --dir=dist/js-quiz"
+    "deploy": "ng build --prod --base-href 'https://nikolayrr.com/js-quiz/' && ngh --dir=dist/js-quiz"
   },
   "private": true,
   "dependencies": {
