@@ -55,4 +55,50 @@ export const beginner = [
       },
     ],
   },
+  {
+    type: 'multiple',
+    question:
+      'Which built-in method reverses the order of the elements of an array?',
+    answers: [
+      {
+        text: 'changeOrder(order)',
+        points: 0,
+      },
+      {
+        text: 'reverse()',
+        points: 1,
+      },
+      {
+        text: 'sort(order)',
+        points: 0,
+      },
+      {
+        text: 'None of the above.',
+        points: 0,
+      },
+    ],
+  },
+  {
+    type: 'multiple',
+    question:
+      'Which of the following function of String object creates an HTML anchor that is used as a hypertext target?',
+    answers: [
+      {
+        text: 'anchor()',
+        points: 1,
+      },
+      {
+        text: 'link()',
+        points: 0,
+      },
+      {
+        text: 'blink()',
+        points: 0,
+      },
+      {
+        text: 'big()',
+        points: 0,
+      },
+    ],
+  },
 ]

@@ -19,12 +19,22 @@ export class QuizComponent implements OnInit {
     private dialog: MatDialog
   ) {}
   ngOnInit(): void {
-    this.questions = beginner // make dynamic
+    this.questions = this.shuffleArray(beginner) // make dynamic
     const group = {} as any
     this.questions.forEach((question: any) => {
       group[question.question] = new FormControl('')
     })
     this.quiz1 = this.fb.group(group)
+  }
+
+  shuffleArray(array: any) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1))
+      var temp = array[i]
+      array[i] = array[j]
+      array[j] = temp
+    }
+    return array
   }
 
   submitForm() {
