@@ -1,5 +1,12 @@
-<mat-toolbar>
-  <span [routerLink]="'/'">JS Quiz</span>
-</mat-toolbar>
-
-<router-outlet></router-outlet>
+<div class="wrapper">
+  <mat-toolbar>
+    <span [routerLink]="'/'">JS Quiz</span>
+    <a [routerLink]="'/about'">About</a>
+  </mat-toolbar>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+  <mat-toolbar class="footer">
+    <p>&copy; 2021 app version {{ version }}</p>
+  </mat-toolbar>
+</div>
