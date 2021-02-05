@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormControl } from '@angular/forms'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
+import { Subscription, timer } from 'rxjs'
 import { beginner } from '../../quizes/beginner'
 import { ScoreComponent } from '../score/score.component'
 @Component({
@@ -9,7 +10,7 @@ import { ScoreComponent } from '../score/score.component'
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss'],
 })
-export class QuizComponent implements OnInit {
+export class QuizComponent implements OnInit, OnDestroy {
   result: any
   questions: any
   quiz1: any
@@ -18,13 +19,28 @@ export class QuizComponent implements OnInit {
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {}
+  countDown: any
+  counter = 0
+  tick = 1000
   ngOnInit(): void {
+    this.countDown = timer(0, this.tick).subscribe(() => {
+      if (this.counter === 0) {
+        this.submitForm()
+      } else {
+        --this.counter
+      }
+    })
     this.questions = this.shuffleArray(beginner) // make dynamic
     const group = {} as any
     this.questions.forEach((question: any) => {
       group[question.question] = new FormControl('')
     })
+    this.counter = this.questions.length * 60
     this.quiz1 = this.fb.group(group)
+  }
+
+  ngOnDestroy() {
+    this.countDown = null
   }
 
   shuffleArray(array: any) {
@@ -47,5 +63,6 @@ export class QuizComponent implements OnInit {
       hasBackdrop: true,
       data: { score: this.result, questions: this.questions },
     })
+    this.quiz1.reset() // reset form
   }
 }

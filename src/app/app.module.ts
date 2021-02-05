@@ -13,7 +13,8 @@ import { MatButtonModule } from '@angular/material/button'
 import { QuizComponent } from './quiz/quiz.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatRadioModule } from '@angular/material/radio';
-import { ScoreComponent } from './score/score.component'
+import { ScoreComponent } from './score/score.component';
+import { CountdownPipe } from './countdown.pipe'
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ScoreComponent } from './score/score.component'
     DialogComponent,
     QuizComponent,
     ScoreComponent,
+    CountdownPipe,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+<h3 class="counter">Time left {{ counter | countdown }}</h3>
 <form [formGroup]="quiz1" class="form">
   <div *ngFor="let q of questions">
     <div class="question">
@@ -16,6 +17,4 @@
     </div>
   </div>
   <button mat-button color="accent" (click)="submitForm()">Submit</button>
-  <!-- <div *ngIf="result">Points: {{ result }} out of {{ questions.length }}</div>
-  <div *ngIf="result === 0">You scored 0 points</div> -->
 </form>
