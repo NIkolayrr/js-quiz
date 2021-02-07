@@ -1,3 +1,5 @@
+$jsYellow: #eed81a;
+
 .hero {
   display: flex;
   justify-content: center;
@@ -7,6 +9,11 @@
     display: flex;
     h1 {
       margin-right: 10px;
+      span {
+        color: $jsYellow;
+        font-weight: 900;
+        text-shadow: 1px 1px 1px darken($jsYellow, 50);
+      }
     }
   }
   .pick-level {

@@ -35,7 +35,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.questions.forEach((question: any) => {
       group[question.question] = new FormControl('')
     })
-    this.counter = this.questions.length * 60
+    this.counter = this.questions.length * 40 // 40 seconds for question
     this.quiz1 = this.fb.group(group)
   }
 

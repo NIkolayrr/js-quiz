@@ -1,12 +1,12 @@
 <div class="wrapper">
-  <mat-toolbar>
+  <mat-toolbar color="primary">
     <span [routerLink]="'/'">JS Quiz</span>
     <!-- <a [routerLink]="'/about'">About</a> -->
   </mat-toolbar>
   <div class="content">
     <router-outlet></router-outlet>
   </div>
-  <mat-toolbar class="footer">
+  <mat-toolbar class="footer" color="primary">
     <p>&copy; 2021 app version {{ version }}</p>
   </mat-toolbar>
 </div>

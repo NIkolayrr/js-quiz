@@ -6,13 +6,12 @@
     font-size: 0.8em;
   }
   .content {
-    min-height: 82vh;
+    min-height: calc(100vh - 110px);
   }
   .footer {
     justify-content: center;
     align-items: center;
-    p {
-      font-size: 0.6em;
-    }
+    font-size: 0.8em;
+    height: 50px;
   }
 }
