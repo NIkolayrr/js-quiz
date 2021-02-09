@@ -1,13 +1,9 @@
 <h3 class="counter">Time left {{ counter | countdown }}</h3>
 <form [formGroup]="quiz1" class="form">
-  <div *ngFor="let q of questions">
+  <div class="questions-wrapper" *ngFor="let q of questions">
     <div class="question">
       <h3>{{ q.question }}</h3>
-      <mat-radio-group
-        aria-labelledby="example-radio-group-label"
-        class="radio-group"
-        formControlName="{{ q.question }}"
-      >
+      <mat-radio-group class="radio-group" formControlName="{{ q.question }}">
         <div *ngFor="let answer of q.answers">
           <mat-radio-button class="radio-button" [value]="answer">
             {{ answer.text }}
@@ -16,5 +12,5 @@
       </mat-radio-group>
     </div>
   </div>
-  <button mat-button color="accent" (click)="submitForm()">Submit</button>
+  <button class="submit-button" (click)="submitForm()">Submit</button>
 </form>
