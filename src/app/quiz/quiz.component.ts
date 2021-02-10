@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms'
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
 import { Subscription, timer } from 'rxjs'
@@ -30,7 +30,7 @@ export class QuizComponent implements OnInit, OnDestroy {
         --this.counter
       }
     })
-    this.questions = this.shuffleArray(beginner) // make dynamic
+    this.questions = this.shuffleArray(beginner) as FormArray // make dynamic
     const group = {} as any
     this.questions.forEach((question: any) => {
       group[question.question] = new FormControl('')
@@ -41,6 +41,19 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.countDown = null
+  }
+
+  showWrongAnswers() {
+    this.questions.map((qs: any) => {
+      let correctAnswer = qs.answers.filter((el: any) => el.points === 1)
+      if (correctAnswer[0].text !== qs.selected) {
+      }
+    })
+  }
+
+  radioChange(e: any, index: number) {
+    const text = e.value.text
+    this.questions[index].selected = text
   }
 
   shuffleArray(array: any) {
@@ -63,6 +76,6 @@ export class QuizComponent implements OnInit, OnDestroy {
       hasBackdrop: true,
       data: { score: this.result, questions: this.questions },
     })
-    this.quiz1.reset() // reset form
+    this.showWrongAnswers()
   }
 }

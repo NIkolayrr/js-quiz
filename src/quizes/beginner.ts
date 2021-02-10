@@ -8,6 +8,7 @@ export const beginner = [
       { text: 'Twitter', points: 0 },
       { text: 'Netscape', points: 1 },
     ],
+    selected: '',
   },
   {
     type: 'multiple',
@@ -17,6 +18,7 @@ export const beginner = [
       { text: '327', points: 0 },
       { text: '57', points: 1 },
     ],
+    selected: '',
   },
   {
     type: 'multiple',
@@ -28,6 +30,7 @@ export const beginner = [
       { text: 'replace()', points: 0 },
       { text: 'search()', points: 0 },
     ],
+    selected: '',
   },
   {
     type: 'multiple',
@@ -54,6 +57,7 @@ export const beginner = [
         points: 0,
       },
     ],
+    selected: '',
   },
   {
     type: 'multiple',
@@ -77,6 +81,7 @@ export const beginner = [
         points: 0,
       },
     ],
+    selected: '',
   },
   {
     type: 'multiple',
@@ -100,5 +105,6 @@ export const beginner = [
         points: 0,
       },
     ],
+    selected: '',
   },
 ]
