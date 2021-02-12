@@ -1,5 +1,26 @@
 @import '../css/variables.scss';
 
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background-color: $accent;
+  padding: 5px 0;
+  margin-bottom: 15px;
+  color: white;
+
+  .counter {
+    margin: 0;
+    flex: 1;
+    text-align: center;
+  }
+  fa-icon {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+}
+
 .questions-wrapper {
   display: flex;
   align-items: center;
@@ -14,6 +35,10 @@
     padding: 10px;
     border-radius: 10px;
 
+    &.error {
+      border-color: red;
+    }
+
     & > .radio-group {
       margin-bottom: 10px;
     }
@@ -22,11 +47,6 @@
       margin: 5px 0;
     }
   }
-}
-.counter {
-  text-align: center;
-  background-color: $accent;
-  color: white;
 }
 
 .submit-button {

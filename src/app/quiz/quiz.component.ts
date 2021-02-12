@@ -1,16 +1,25 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms'
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
 import { Subscription, timer } from 'rxjs'
 import { beginner } from '../../quizes/beginner'
 import { ScoreComponent } from '../score/score.component'
+import { faUndo } from '@fortawesome/free-solid-svg-icons'
+
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss'],
 })
 export class QuizComponent implements OnInit, OnDestroy {
+  faUndo = faUndo
   result: any
   questions: any
   quiz1: any
@@ -44,9 +53,9 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   showWrongAnswers() {
-    this.questions.map((qs: any) => {
-      let correctAnswer = qs.answers.filter((el: any) => el.points === 1)
-      if (correctAnswer[0].text !== qs.selected) {
+    Object.keys(this.quiz1.controls).forEach((key) => {
+      if (this.quiz1.controls[key].value.points === 0) {
+        this.quiz1.controls[key].setErrors({ incorrect: true })
       }
     })
   }
@@ -66,6 +75,11 @@ export class QuizComponent implements OnInit, OnDestroy {
     return array
   }
 
+  reset() {
+    this.quiz1.reset()
+    this.counter = this.questions.length * 40
+  }
+
   submitForm() {
     this.result = 0
     Object.keys(this.quiz1.value).map((val) => {
@@ -77,5 +91,6 @@ export class QuizComponent implements OnInit, OnDestroy {
       data: { score: this.result, questions: this.questions },
     })
     this.showWrongAnswers()
+    this.countDown.unsubscribe() // stop timer
   }
 }

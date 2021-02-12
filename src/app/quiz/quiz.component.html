@@ -1,14 +1,21 @@
-<h3 class="counter">Time left {{ counter | countdown }}</h3>
+<div class="header">
+  <h3 class="counter">Time left {{ counter | countdown }}</h3>
+  <fa-icon [icon]="faUndo" (click)="reset()"></fa-icon>
+</div>
 <form [formGroup]="quiz1" class="form">
   <div class="questions-wrapper" *ngFor="let q of questions; let i = index">
-    <div class="question">
+    <div
+      class="question"
+      [ngClass]="{ error: quiz1.controls[q.question].errors }"
+    >
       <h3>{{ q.question }}</h3>
-      <mat-radio-group class="radio-group" formControlName="{{ q.question }}">
+      <mat-radio-group class="radio-group" [formControlName]="q.question">
         <div *ngFor="let answer of q.answers">
           <mat-radio-button
             class="radio-button"
             [value]="answer"
             (change)="radioChange($event, i)"
+            color="primary"
           >
             {{ answer.text }}
           </mat-radio-button>
