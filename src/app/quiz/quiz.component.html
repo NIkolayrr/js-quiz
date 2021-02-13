@@ -1,8 +1,8 @@
-<div class="header">
+<div class="header" [ngClass]="{ sticky: stickyHeader }">
   <h3 class="counter">Time left {{ counter | countdown }}</h3>
   <fa-icon [icon]="faUndo" (click)="reset()"></fa-icon>
 </div>
-<form [formGroup]="quiz1" class="form">
+<form [formGroup]="quiz1" class="form" [ngClass]="{ bumpMargin: stickyHeader }">
   <div class="questions-wrapper" *ngFor="let q of questions; let i = index">
     <div
       class="question"

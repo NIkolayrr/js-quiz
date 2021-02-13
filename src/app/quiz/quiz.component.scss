@@ -1,5 +1,16 @@
 @import '../css/variables.scss';
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.bumpMargin {
+  margin-top: 50px;
+}
+
 .header {
   display: flex;
   justify-content: center;

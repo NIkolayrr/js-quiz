@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core'
 import {
   FormArray,
   FormBuilder,
@@ -20,6 +20,8 @@ import { faUndo } from '@fortawesome/free-solid-svg-icons'
 })
 export class QuizComponent implements OnInit, OnDestroy {
   faUndo = faUndo
+
+  stickyHeader: boolean = false
   result: any
   questions: any
   quiz1: any
@@ -31,14 +33,15 @@ export class QuizComponent implements OnInit, OnDestroy {
   countDown: any
   counter = 0
   tick = 1000
+  timer = timer(0, this.tick).subscribe(() => {
+    if (this.counter === 0) {
+      this.submitForm()
+    } else {
+      --this.counter
+    }
+  })
   ngOnInit(): void {
-    this.countDown = timer(0, this.tick).subscribe(() => {
-      if (this.counter === 0) {
-        this.submitForm()
-      } else {
-        --this.counter
-      }
-    })
+    this.countDown = timer
     this.questions = this.shuffleArray(beginner) as FormArray // make dynamic
     const group = {} as any
     this.questions.forEach((question: any) => {
@@ -46,6 +49,15 @@ export class QuizComponent implements OnInit, OnDestroy {
     })
     this.counter = this.questions.length * 40 // 40 seconds for question
     this.quiz1 = this.fb.group(group)
+  }
+
+  @HostListener('window:scroll', ['$event']) // for window scroll events
+  onScroll($event: any) {
+    if (window.pageYOffset > 64) {
+      this.stickyHeader = true
+    } else {
+      this.stickyHeader = false
+    }
   }
 
   ngOnDestroy() {
@@ -78,6 +90,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   reset() {
     this.quiz1.reset()
     this.counter = this.questions.length * 40
+    this.countDown = this.timer
   }
 
   submitForm() {
