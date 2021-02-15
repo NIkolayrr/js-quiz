@@ -107,4 +107,127 @@ export const beginner = [
     ],
     selected: '',
   },
+  {
+    type: 'multiple',
+    question: 'Which of the following is a server-side Javascript object?',
+    answers: [
+      {
+        text: 'Function',
+        points: 0,
+      },
+      {
+        text: 'File',
+        points: 0,
+      },
+      {
+        text: 'FileUpload',
+        points: 1,
+      },
+      {
+        text: 'Date',
+        points: 0,
+      },
+    ],
+    selected: '',
+  },
+  {
+    type: 'multiple',
+    question:
+      'Which of the below is used in Javascript to insert special characters?',
+    answers: [
+      {
+        text: '&',
+        points: 0,
+      },
+      {
+        text: '\\',
+        points: 1,
+      },
+      {
+        text: '-',
+        points: 0,
+      },
+      {
+        text: '%',
+        points: 0,
+      },
+    ],
+    selected: '',
+  },
+  {
+    type: 'multiple',
+    question: 'JavaScript ignores extra spaces?',
+    answers: [
+      {
+        text: 'True',
+        points: 1,
+      },
+      {
+        text: 'False',
+        points: 0,
+      },
+    ],
+    selected: '',
+  },
+  {
+    type: 'multiple',
+    question: 'Which of the following is not a valid Javascript variable?',
+    answers: [
+      {
+        text: '34peter',
+        points: 1,
+      },
+      {
+        text: '_cool_var',
+        points: 0,
+      },
+      {
+        text: 'javajava',
+        points: 0,
+      },
+      {
+        text: 'None of the above',
+        points: 0,
+      },
+    ],
+    selected: '',
+  },
+  {
+    type: 'multiple',
+    question: 'JavaScript supports all boolean operators',
+    answers: [
+      {
+        text: 'True',
+        points: 0,
+      },
+      {
+        text: 'False',
+        points: 1,
+      },
+    ],
+    selected: '',
+  },
+  {
+    type: 'multiple',
+    question: 'Why so Java and JavaScript have similar name?',
+    answers: [
+      {
+        text: 'JavaScript is a stripped-down version of Java',
+        points: 0,
+      },
+      {
+        text: 'The syntax of JavaScript is loosely based on Java syntax',
+        points: 1,
+      },
+      {
+        text: 'They both support Object Oriented Programming',
+        points: 0,
+      },
+      {
+        text: 'None of the above',
+        points: 0,
+      },
+    ],
+    selected: '',
+  },
 ]

@@ -11,7 +11,8 @@ import { Router } from '@angular/router'
 import { Subscription, timer } from 'rxjs'
 import { beginner } from '../../quizes/beginner'
 import { ScoreComponent } from '../score/score.component'
-import { faUndo } from '@fortawesome/free-solid-svg-icons'
+import { faClock, faUndo } from '@fortawesome/free-solid-svg-icons'
+import { filter, map, take } from 'rxjs/operators'
 
 @Component({
   selector: 'app-quiz',
@@ -20,7 +21,9 @@ import { faUndo } from '@fortawesome/free-solid-svg-icons'
 })
 export class QuizComponent implements OnInit, OnDestroy {
   faUndo = faUndo
+  faClock = faClock
 
+  answered: number = 0
   stickyHeader: boolean = false
   result: any
   questions: any
@@ -33,22 +36,22 @@ export class QuizComponent implements OnInit, OnDestroy {
   countDown: any
   counter = 0
   tick = 1000
-  timer = timer(0, this.tick).subscribe(() => {
-    if (this.counter === 0) {
-      this.submitForm()
-    } else {
-      --this.counter
-    }
-  })
   ngOnInit(): void {
-    this.countDown = timer
+    this.countDown = timer(0, this.tick).subscribe(() => this.countDownFunc())
     this.questions = this.shuffleArray(beginner) as FormArray // make dynamic
     const group = {} as any
     this.questions.forEach((question: any) => {
       group[question.question] = new FormControl('')
     })
     this.counter = this.questions.length * 40 // 40 seconds for question
-    this.quiz1 = this.fb.group(group)
+    this.quiz1 = this.fb.group(group) as FormGroup
+
+    this.quiz1.valueChanges.subscribe((questions: any) => {
+      console.log(questions)
+      this.answered = Object.values(questions).filter(
+        (qs) => qs !== '' && qs != null
+      ).length
+    })
   }
 
   @HostListener('window:scroll', ['$event']) // for window scroll events
@@ -62,6 +65,8 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.countDown = null
+    this.quiz1.valueChanges.unsubscribe()
+    this.countDown.unsubscribe()
   }
 
   showWrongAnswers() {
@@ -77,6 +82,14 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.questions[index].selected = text
   }
 
+  countDownFunc() {
+    if (this.counter === 0) {
+      this.submitForm()
+    } else {
+      --this.counter
+    }
+  }
+
   shuffleArray(array: any) {
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1))
@@ -89,21 +102,19 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   reset() {
     this.quiz1.reset()
-    this.counter = this.questions.length * 40
-    this.countDown = this.timer
   }
 
   submitForm() {
     this.result = 0
     Object.keys(this.quiz1.value).map((val) => {
       if (!this.quiz1.value[val].points) return
-      this.result += this.quiz1.value[val].points
+      this.result += this.quiz1.value[val].points || '0'
     })
     this.dialog.open(ScoreComponent, {
       hasBackdrop: true,
       data: { score: this.result, questions: this.questions },
     })
     this.showWrongAnswers()
-    this.countDown.unsubscribe() // stop timer
+    this.countDown.unsubscribe()
   }
 }

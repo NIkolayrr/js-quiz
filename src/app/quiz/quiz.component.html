@@ -1,8 +1,16 @@
 <div class="header" [ngClass]="{ sticky: stickyHeader }">
-  <h3 class="counter">Time left {{ counter | countdown }}</h3>
+  <p>{{ answered }} / {{ questions.length }}</p>
+  <h3 class="counter">
+    {{ counter | countdown }} <fa-icon [icon]="faClock"></fa-icon>
+  </h3>
   <fa-icon [icon]="faUndo" (click)="reset()"></fa-icon>
 </div>
-<form [formGroup]="quiz1" class="form" [ngClass]="{ bumpMargin: stickyHeader }">
+<form
+  [formGroup]="quiz1"
+  (ngSubmit)="submitForm()"
+  class="form"
+  [ngClass]="{ bumpMargin: stickyHeader }"
+>
   <div class="questions-wrapper" *ngFor="let q of questions; let i = index">
     <div
       class="question"
@@ -23,5 +31,5 @@
       </mat-radio-group>
     </div>
   </div>
-  <button class="submit-button" (click)="submitForm()">Submit</button>
+  <button class="submit-button" type="submit">Submit</button>
 </form>
