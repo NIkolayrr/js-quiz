@@ -64,7 +64,6 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.countDown = null
     this.quiz1.valueChanges.unsubscribe()
     this.countDown.unsubscribe()
   }
