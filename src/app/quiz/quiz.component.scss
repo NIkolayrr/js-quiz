@@ -1,5 +1,4 @@
 @import '../css/variables.scss';
-@import '~font-awesome/css/font-awesome.css';
 
 .sticky {
   position: fixed;
@@ -66,8 +65,7 @@
     .check {
       position: relative;
       &::after {
-        font-family: FontAwesome;
-        content: '\f058';
+        content: '\2714';
         font-size: 20px;
         margin-left: 10px;
         color: green;
