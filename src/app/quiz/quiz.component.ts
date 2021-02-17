@@ -11,7 +11,7 @@ import { Router } from '@angular/router'
 import { Subscription, timer } from 'rxjs'
 import { beginner } from '../../quizes/beginner'
 import { ScoreComponent } from '../score/score.component'
-import { faClock, faUndo } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faClock, faUndo } from '@fortawesome/free-solid-svg-icons'
 import { filter, map, take } from 'rxjs/operators'
 
 @Component({
@@ -22,6 +22,7 @@ import { filter, map, take } from 'rxjs/operators'
 export class QuizComponent implements OnInit, OnDestroy {
   faUndo = faUndo
   faClock = faClock
+  faCheck = faCheck
 
   answered: number = 0
   stickyHeader: boolean = false

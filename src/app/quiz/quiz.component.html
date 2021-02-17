@@ -18,9 +18,12 @@
     >
       <h3>{{ q.question }}</h3>
       <mat-radio-group class="radio-group" [formControlName]="q.question">
-        <div *ngFor="let answer of q.answers">
+        <div class="answer-container" *ngFor="let answer of q.answers">
           <mat-radio-button
             class="radio-button"
+            [ngClass]="{
+              check: answer.points === 1 && quiz1.controls[q.question].errors
+            }"
             [value]="answer"
             (change)="radioChange($event, i)"
             color="primary"
