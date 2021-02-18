@@ -23,6 +23,17 @@ $jsYellow: #eed81a;
       flex: 1;
       margin-left: 10px;
       cursor: pointer;
+      mat-card-title {
+        display: flex;
+        align-items: center;
+        h2 {
+          margin: 0 5px 0 0;
+        }
+        fa-icon {
+          font-size: 0.5em;
+          color: gold;
+        }
+      }
       &.inactive {
         opacity: 0.5;
       }

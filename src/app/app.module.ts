@@ -15,7 +15,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatRadioModule } from '@angular/material/radio'
 import { ScoreComponent } from './score/score.component'
 import { CountdownPipe } from './countdown.pipe'
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import {
+  FaIconLibrary,
+  FontAwesomeModule,
+} from '@fortawesome/angular-fontawesome'
+import { faClock, faStar, faUndo } from '@fortawesome/free-solid-svg-icons'
 
 @NgModule({
   declarations: [
@@ -43,4 +47,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(faStar, faClock, faUndo)
+  }
+}

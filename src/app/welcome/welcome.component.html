@@ -4,8 +4,28 @@
     <h2>Select your level to begin</h2>
   </div>
   <div class="pick-level">
-    <mat-card (click)="openDialog('beginner')"> Beginner </mat-card>
-    <mat-card class="inactive">Intermediate</mat-card>
-    <mat-card class="inactive">Pro</mat-card>
+    <mat-card (click)="openDialog('beginner')">
+      <mat-card-title>
+        <h2>Beginner</h2>
+        <fa-icon icon="star"></fa-icon>
+      </mat-card-title>
+      <p>Multiple choice questions</p>
+    </mat-card>
+    <mat-card class="inactive">
+      <mat-card-title>
+        <h2>Intermediate</h2>
+        <span *ngFor="let item of [].constructor(2)"
+          ><fa-icon icon="star"></fa-icon
+        ></span>
+      </mat-card-title>
+    </mat-card>
+    <mat-card class="inactive">
+      <mat-card-title>
+        <h2>Pro</h2>
+        <span *ngFor="let item of [].constructor(2)"
+          ><fa-icon icon="star"></fa-icon
+        ></span>
+      </mat-card-title>
+    </mat-card>
   </div>
 </div>
