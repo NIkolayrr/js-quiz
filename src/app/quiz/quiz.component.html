@@ -1,5 +1,5 @@
 <div class="header" [ngClass]="{ sticky: stickyHeader }">
-  <p>{{ answered }} / {{ questions.length }}</p>
+  <p>{{ currentQuestion + 1 }} / {{ questions.length }}</p>
   <h3 class="counter">
     {{ counter | countdown }} <fa-icon icon="clock"></fa-icon>
   </h3>
@@ -11,21 +11,32 @@
   class="form"
   [ngClass]="{ bumpMargin: stickyHeader }"
 >
-  <div class="questions-wrapper" *ngFor="let q of questions; let i = index">
+  <div class="questions-wrapper">
     <div
       class="question"
-      [ngClass]="{ error: quiz1.controls[q.question].errors }"
+      [ngClass]="{
+        error: quiz1.controls[questions[currentQuestion].question].errors
+      }"
     >
-      <h3>{{ q.question }}</h3>
-      <mat-radio-group class="radio-group" [formControlName]="q.question">
-        <div class="answer-container" *ngFor="let answer of q.answers">
+      <h3>{{ questions[currentQuestion].question }}</h3>
+      <mat-radio-group
+        class="radio-group"
+        [formControlName]="questions[currentQuestion].question"
+      >
+        <div
+          class="answer-container"
+          *ngFor="let answer of questions[currentQuestion].answers"
+        >
           <mat-radio-button
             class="radio-button"
             [ngClass]="{
-              check: answer.points === 1 && quiz1.controls[q.question].errors
+              check:
+                answer.points === 1 &&
+                quiz1.controls[questions[currentQuestion].question].errors
             }"
             [value]="answer"
-            (change)="radioChange($event, i)"
+            [checked]="questions[currentQuestion].selected == answer.text"
+            (change)="radioChange($event, currentQuestion)"
             color="primary"
           >
             {{ answer.text }}
@@ -34,5 +45,31 @@
       </mat-radio-group>
     </div>
   </div>
-  <button class="submit-button" type="submit">Submit</button>
+  <footer>
+    <div class="pagination">
+      <button
+        mat-button
+        type="button"
+        *ngIf="currentQuestion > 0"
+        (click)="goToPrevious(currentQuestion)"
+      >
+        <fa-icon icon="arrow-circle-left"></fa-icon> Previous
+      </button>
+      <button
+        mat-button
+        type="button"
+        *ngIf="questions.length - 1 > currentQuestion"
+        (click)="goToNext(currentQuestion)"
+      >
+        Next <fa-icon icon="arrow-circle-right"></fa-icon>
+      </button>
+    </div>
+    <button
+      *ngIf="currentQuestion === questions.length - 1"
+      class="submit-button"
+      type="submit"
+    >
+      Submit
+    </button>
+  </footer>
 </form>

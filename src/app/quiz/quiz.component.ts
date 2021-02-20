@@ -37,6 +37,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   countDown: any
   counter = 0
   tick = 1000
+  currentQuestion: number = 0
   ngOnInit(): void {
     this.countDown = timer(0, this.tick).subscribe(() => this.countDownFunc())
     this.questions = this.shuffleArray(beginner) as FormArray // make dynamic
@@ -48,7 +49,6 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.quiz1 = this.fb.group(group) as FormGroup
 
     this.quiz1.valueChanges.subscribe((questions: any) => {
-      console.log(questions)
       this.answered = Object.values(questions).filter(
         (qs) => qs !== '' && qs != null
       ).length
@@ -64,22 +64,37 @@ export class QuizComponent implements OnInit, OnDestroy {
     }
   }
 
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (
+      event.key === 'ArrowRight' &&
+      this.currentQuestion < this.questions.length - 1
+    ) {
+      this.goToNext(this.currentQuestion)
+    }
+
+    if (event.key === 'ArrowLeft' && this.currentQuestion > 0) {
+      this.goToPrevious(this.currentQuestion)
+    }
+  }
+
   ngOnDestroy() {
     this.quiz1.valueChanges.unsubscribe()
     this.countDown.unsubscribe()
   }
 
-  showWrongAnswers() {
-    Object.keys(this.quiz1.controls).forEach((key) => {
-      if (this.quiz1.controls[key].value.points === 0) {
-        this.quiz1.controls[key].setErrors({ incorrect: true })
-      }
-    })
-  }
-
   radioChange(e: any, index: number) {
     const text = e.value.text
+    console.log(this.questions[index])
     this.questions[index].selected = text
+  }
+
+  goToPrevious(index: number) {
+    this.currentQuestion = index - 1
+  }
+
+  goToNext(index: number) {
+    this.currentQuestion = index + 1
   }
 
   countDownFunc() {
@@ -106,15 +121,25 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   submitForm() {
     this.result = 0
-    Object.keys(this.quiz1.value).map((val) => {
-      if (!this.quiz1.value[val].points) return
-      this.result += this.quiz1.value[val].points || '0'
+    this.questions.map((question: any) => {
+      console.log(this.getCorrectAnswer(question))
+      if (question.selected === this.getCorrectAnswer(question)) {
+        this.result += 1
+      } else {
+        this.quiz1.controls[question.question].setErrors({ incorrect: true })
+      }
     })
     this.dialog.open(ScoreComponent, {
       hasBackdrop: true,
       data: { score: this.result, questions: this.questions },
     })
-    this.showWrongAnswers()
     this.countDown.unsubscribe()
+  }
+
+  getCorrectAnswer(question: any) {
+    const correctAnswer = question.answers.filter(
+      (answ: any) => answ.points === 1
+    )
+    return correctAnswer[0].text
   }
 }

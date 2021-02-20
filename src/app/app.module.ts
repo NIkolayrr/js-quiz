@@ -19,7 +19,14 @@ import {
   FaIconLibrary,
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome'
-import { faClock, faStar, faUndo } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowAltCircleRight,
+  faArrowCircleLeft,
+  faArrowCircleRight,
+  faClock,
+  faStar,
+  faUndo,
+} from '@fortawesome/free-solid-svg-icons'
 
 @NgModule({
   declarations: [
@@ -49,6 +56,12 @@ import { faClock, faStar, faUndo } from '@fortawesome/free-solid-svg-icons'
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faStar, faClock, faUndo)
+    library.addIcons(
+      faStar,
+      faClock,
+      faUndo,
+      faArrowCircleLeft,
+      faArrowCircleRight
+    )
   }
 }
