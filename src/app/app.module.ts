@@ -27,6 +27,7 @@ import {
   faStar,
   faUndo,
 } from '@fortawesome/free-solid-svg-icons'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {
     ReactiveFormsModule,
     MatRadioModule,
     FontAwesomeModule,
+    MatTooltipModule,
   ],
   exports: [],
   providers: [],

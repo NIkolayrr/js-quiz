@@ -3,7 +3,11 @@
   <h3 class="counter">
     {{ counter | countdown }} <fa-icon icon="clock"></fa-icon>
   </h3>
-  <fa-icon icon="undo" (click)="reset()"></fa-icon>
+  <fa-icon
+    icon="undo"
+    matTooltip="Rest the questions and timer"
+    (click)="reset()"
+  ></fa-icon>
 </div>
 <form
   [formGroup]="quiz1"

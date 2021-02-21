@@ -11,7 +11,6 @@ import { Router } from '@angular/router'
 import { Subscription, timer } from 'rxjs'
 import { beginner } from '../../quizes/beginner'
 import { ScoreComponent } from '../score/score.component'
-import { faCheck, faClock, faUndo } from '@fortawesome/free-solid-svg-icons'
 import { filter, map, take } from 'rxjs/operators'
 
 @Component({
@@ -20,33 +19,25 @@ import { filter, map, take } from 'rxjs/operators'
   styleUrls: ['./quiz.component.scss'],
 })
 export class QuizComponent implements OnInit, OnDestroy {
-  faUndo = faUndo
-  faClock = faClock
-  faCheck = faCheck
-
   answered: number = 0
   stickyHeader: boolean = false
   result: any
   questions: any
   quiz1: any
+  countDown: any
+  counter: number = 0
+  tick: number = 1000
+  currentQuestion: number = 0
+
   constructor(
     private route: Router,
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {}
-  countDown: any
-  counter = 0
-  tick = 1000
-  currentQuestion: number = 0
+
   ngOnInit(): void {
-    this.countDown = timer(0, this.tick).subscribe(() => this.countDownFunc())
-    this.questions = this.shuffleArray(beginner) as FormArray // make dynamic
-    const group = {} as any
-    this.questions.forEach((question: any) => {
-      group[question.question] = new FormControl('')
-    })
-    this.counter = this.questions.length * 40 // 40 seconds for question
-    this.quiz1 = this.fb.group(group) as FormGroup
+    this.startCounter()
+    this.fillTheQuestions()
 
     this.quiz1.valueChanges.subscribe((questions: any) => {
       this.answered = Object.values(questions).filter(
@@ -83,9 +74,28 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.countDown.unsubscribe()
   }
 
+  startCounter() {
+    this.countDown = timer(0, this.tick).subscribe(() => {
+      if (this.counter === 0) {
+        this.submitForm()
+      } else {
+        --this.counter
+      }
+    })
+  }
+
+  fillTheQuestions() {
+    this.questions = this.shuffleArray(beginner) as FormArray // make dynamic
+    const group = {} as any
+    this.questions.forEach((question: any) => {
+      group[question.question] = new FormControl('')
+    })
+    this.counter = this.questions.length * 40 // 40 seconds for question
+    this.quiz1 = this.fb.group(group) as FormGroup
+  }
+
   radioChange(e: any, index: number) {
     const text = e.value.text
-    console.log(this.questions[index])
     this.questions[index].selected = text
   }
 
@@ -95,14 +105,6 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   goToNext(index: number) {
     this.currentQuestion = index + 1
-  }
-
-  countDownFunc() {
-    if (this.counter === 0) {
-      this.submitForm()
-    } else {
-      --this.counter
-    }
   }
 
   shuffleArray(array: any) {
@@ -117,6 +119,10 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   reset() {
     this.quiz1.reset()
+    this.questions.map((q: any) => (q.selected = ''))
+    this.countDown.unsubscribe()
+    this.counter = this.questions.length * 40
+    this.startCounter()
   }
 
   submitForm() {
